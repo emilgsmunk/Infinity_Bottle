@@ -13,6 +13,12 @@ class Infinity_Bottle:
         self.Started = datetime.datetime.now()
 
 
+class Bottle:
+    def __init__(self,name):
+        pass
+        
+
+
 # Testing
 # ib = Infinity_Bottle("test")
 
