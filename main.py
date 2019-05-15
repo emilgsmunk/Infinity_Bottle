@@ -6,24 +6,53 @@ https://github.com/emilgsmunk/Infinity_Bottle.git
 """
 
 import datetime
+from tkinter import *
 
 
 class Infinity_Bottle:
-    """
-    The Infinity_Bottle class is the main class for the application. This will hold information about the Infinity Bottle itself, such as name, creation time, type (e.g. whisky or rum), etc.
-    """
-
-    def __init__(self, name, b_type):
-        self.Name = name
+    def __init__(self, master):
+        # Bottle related
+        self.Name = "name"
         self.Started = str(datetime.datetime.now())
-        self.Type = b_type
+        self.Type = "b_type"
         self.Weight_Total = 0
         self.Weight_Content = 0
         self.Weight_Bottle = 0
         self.Fillings = []
         self.Bottles = {}
+        self.add_params = ("name",12,"origin",42,250,350)
 
-    def add_volume(self, name, age, origin, abv, weight_before, weight_after):
+        # GUI related
+        frame = Frame(master)
+        frame.pack()
+
+        self.button_quit = Button(frame, text="QUIT", fg="red", command=frame.quit)
+        self.button_quit.pack(side=LEFT)
+
+        self.button_add = Button(frame, text="Add", command=self.add_volume)
+        self.button_add.pack(side=LEFT)
+
+        self.entry_name = Entry(frame)
+        self.entry_name.pack()
+        self.entry_age = Entry(frame)
+        self.entry_age.pack()
+        self.entry_origin = Entry(frame)
+        self.entry_origin.pack()
+        self.entry_abv = Entry(frame)
+        self.entry_abv.pack()
+        self.entry_weight_before = Entry(frame)
+        self.entry_weight_before.pack()
+        self.entry_weight_after = Entry(frame)
+        self.entry_weight_after.pack()
+
+    def add_volume(self):
+        #(name,age, origin, abv, weight_before, weight_after) = self.add_params
+        name = str(self.entry_name.get())
+        age = int(self.entry_age.get())
+        origin = str(self.entry_origin.get())
+        abv = float(self.entry_abv.get())
+        weight_before = int(self.entry_weight_before.get())
+        weight_after = int(self.entry_weight_after.get())
 
         weight_added = weight_after - weight_before
 
@@ -37,12 +66,12 @@ class Infinity_Bottle:
                 diff_percent = weight_diff / self.Weight_Content  # Find percentual diff
 
                 for b in self.Bottles:
-                    self.Bottles[b].Weight *= (1 + diff_percent)
+                    self.Bottles[b].Weight *= 1 + diff_percent
 
             elif weight_diff > 0:
                 print("ERROR: Weight has increased!")
                 quit()
-            
+
         self.Weight_Total = weight_after
         self.Weight_Content = self.Weight_Total - self.Weight_Bottle
 
@@ -64,6 +93,7 @@ class Infinity_Bottle:
                 weight_after,
             ]
         )
+        print(self.Fillings)
 
 
 class Bottle:
@@ -75,59 +105,11 @@ class Bottle:
         self.Weight = weight
 
 
-# Testing
-# ib = Infinity_Bottle("test")
-
-# print(ib.Name)
-# print(ib.Started)
-
-# IB_name = input("enter name of Infinity Bottle: \n")
-# IB_type = input("enter type of Infinity Bottle: \n")
-IB_name = "test name"
-IB_type = "test type"
-
-IB = Infinity_Bottle(IB_name, IB_type)
-
-# IB.add_volume("name", 12, "origin", 42, 250, 350)
-# IB.add_volume("name2", 10, "origin2", 50, 300, 450)
-# IB.add_volume("name", 12, "origin", 42, 350, 450)
 
 
-# root = Tk()
+root = Tk()
 
-# button_add = Button(
-#             root, text="Add", command=print("yay!")
-#             )
-# button_add.pack(side=RIGHT)
-# label_test = Label(root,text=IB.Fillings.__len__())
-# label_test.pack(side=LEFT)
+app = Infinity_Bottle(root)
 
-# root.mainloop()
-
-
-# from Tkinter import *
-
-# class App:
-
-#     def __init__(self, master):
-
-#         frame = Frame(master)
-#         frame.pack()
-
-#         self.button = Button(
-#             frame, text="QUIT", fg="red", command=frame.quit
-#             )
-#         self.button.pack(side=LEFT)
-
-#         self.hi_there = Button(frame, text="Hello", command=self.say_hi)
-#         self.hi_there.pack(side=LEFT)
-
-#     def say_hi(self):
-#         print "hi there, everyone!"
-
-# root = Tk()
-
-# app = App(root)
-
-# root.mainloop()
-# root.destroy() # optional; see description below
+root.mainloop()
+root.destroy()
