@@ -3,3 +3,6 @@ venv
 
 # VS Code settings etc
 .vscode
+
+# test script for random testing and messing around
+test.py
