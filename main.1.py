@@ -6,6 +6,7 @@ https://github.com/emilgsmunk/Infinity_Bottle.git
 """
 
 import datetime
+import json
 from tkinter import *
 from tkinter.ttk import *
 
@@ -57,7 +58,7 @@ class Main_Page(Frame):
         Temp_Note.pack()
 
         Quit_Button = Button(self, text="QUIT", command=self.quit)
-        Quit_Button.pack(side=BOTTOM)
+        Quit_Button.pack(side="bottom")
 
 
 class Add_Volume_Page(Frame):
@@ -79,9 +80,9 @@ class Add_Volume_Page(Frame):
         Frame_entries = Frame(self)
         Frame_entries.pack()
         Frame_left = Frame(Frame_entries)
-        Frame_left.pack(side=LEFT)
+        Frame_left.pack(side="left")
         Frame_right = Frame(Frame_entries)
-        Frame_right.pack(side=RIGHT)
+        Frame_right.pack(side="right")
 
         entry_name = Entry(Frame_right)
         entry_name.pack()
@@ -114,7 +115,7 @@ class Add_Volume_Page(Frame):
         Label_weight_after.pack()
 
         Quit_Button = Button(self, text="QUIT", command=self.quit)
-        Quit_Button.pack(side=BOTTOM)
+        Quit_Button.pack(side="bottom")
 
     def add_volume_caller(self,controller):
         controller.Active_Infinity_Bottle.add_volume(
@@ -178,7 +179,9 @@ class Infinity_Bottle:
                 weight_after,
             ]
         )
-        print(self.Fillings)
+
+        # with open('data.txt', 'w') as outfile:  
+        #     json.dump(data, outfile)
 
 
 class Bottle:
@@ -189,7 +192,8 @@ class Bottle:
         self.abv = abv
         self.Weight = weight
 
-
+# with open('data.txt') as json_file:  
+#     data = json.load(json_file)
 # ISSUE: Allow customization
 Active_Infinity_Bottle = Infinity_Bottle("Infinity Bottle", "Alcohol")
 
